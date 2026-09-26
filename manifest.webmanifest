@@ -1,0 +1,39 @@
+{
+  "name": "さっと家計簿",
+  "short_name": "家計簿",
+  "description": "残高が一目で分かり、ワンタップで支出を記録できる家計簿",
+  "lang": "ja",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1512",
+  "theme_color": "#0f1512",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "食費を記録",
+      "short_name": "食費",
+      "url": "./index.html?quick=food",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "カフェを記録",
+      "short_name": "カフェ",
+      "url": "./index.html?quick=cafe",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "交通費を記録",
+      "short_name": "交通",
+      "url": "./index.html?quick=transport",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

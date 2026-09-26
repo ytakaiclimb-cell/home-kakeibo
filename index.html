@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>さっと家計簿</title>
+<meta name="description" content="残高が一目で分かり、ワンタップで支出を記録できるホーム画面家計簿">
+<meta name="theme-color" content="#0f1512">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="家計簿">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main id="app">
+
+  <!-- ===== 残高 ===== -->
+  <section class="balance" aria-label="今月の残高">
+    <div class="balance-head">
+      <span class="month" id="monthLabel">—</span>
+      <button class="icon-btn" id="openSettings" aria-label="設定">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 13a7.7 7.7 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7.6 7.6 0 0 0-1.8-1L14.9 3H9.1l-.4 2.5a7.6 7.6 0 0 0-1.8 1l-2.3-1-2 3.4L4.6 11a7.7 7.7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1c.55.42 1.16.76 1.8 1l.4 2.6h5.8l.4-2.6c.64-.24 1.25-.58 1.8-1l2.3 1 2-3.4-2-1.5Z"/></svg>
+      </button>
+    </div>
+    <p class="balance-label">今月の残り</p>
+    <p class="balance-amount" id="balanceAmount">¥0</p>
+    <div class="meter" role="img" aria-label="予算の使用状況">
+      <div class="meter-fill" id="meterFill"></div>
+    </div>
+    <div class="balance-sub">
+      <span>使った <strong id="spentAmount">¥0</strong></span>
+      <span>予算 <strong id="budgetAmount">¥0</strong></span>
+    </div>
+    <p class="pace" id="paceNote"></p>
+  </section>
+
+  <!-- ===== ワンタップ記録 ===== -->
+  <section class="quick" aria-label="ワンタップ記録">
+    <h2 class="section-title">タップで記録</h2>
+    <div class="grid" id="quickGrid"></div>
+    <button class="custom-btn" id="openPad">
+      <span class="plus">＋</span> 金額を入力して記録
+    </button>
+  </section>
+
+  <!-- ===== 履歴 ===== -->
+  <section class="history" aria-label="最近の記録">
+    <h2 class="section-title">
+      最近の記録
+      <span class="count" id="historyCount"></span>
+    </h2>
+    <ul class="list" id="historyList"></ul>
+    <p class="empty" id="historyEmpty">まだ記録がありません。上のボタンをタップしてみてください。</p>
+  </section>
+
+  <p class="footprint">データはこの端末の中だけに保存されます</p>
+</main>
+
+<!-- ===== トースト（取り消し） ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite" hidden>
+  <span id="toastText"></span>
+  <button id="toastUndo">取り消す</button>
+</div>
+
+<!-- ===== テンキー ===== -->
+<div class="sheet-backdrop" id="padSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="金額を入力">
+    <div class="sheet-grab"></div>
+    <p class="pad-amount" id="padAmount">¥0</p>
+    <div class="pad-cats" id="padCats"></div>
+    <div class="pad">
+      <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+      <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+      <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+      <button data-key="00">00</button><button data-key="0">0</button>
+      <button data-key="del" aria-label="削除">⌫</button>
+    </div>
+    <div class="sheet-actions">
+      <button class="ghost" data-close-sheet>やめる</button>
+      <button class="primary" id="padSave">記録する</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 設定 ===== -->
+<div class="sheet-backdrop" id="settingsSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="設定">
+    <div class="sheet-grab"></div>
+    <h2 class="sheet-title">設定</h2>
+
+    <label class="field">
+      <span>今月の予算</span>
+      <input type="number" id="budgetInput" inputmode="numeric" min="0" step="1000">
+    </label>
+
+    <h3 class="sub-title">ワンタップの金額</h3>
+    <p class="hint">タップしたときに記録される金額です。</p>
+    <div class="cat-settings" id="catSettings"></div>
+
+    <div class="danger">
+      <button class="ghost" id="exportBtn">データを書き出す</button>
+      <button class="ghost warn" id="resetBtn">今月の記録を消す</button>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="primary" data-close-sheet>閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
