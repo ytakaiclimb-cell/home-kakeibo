@@ -24,12 +24,16 @@ Android ではホーム画面のアイコンを長押しすると、「食費を
 
 ## 公開する（GitHub Pages）
 
-静的ファイルだけなので、そのまま置けば動きます。
+`.github/workflows/pages.yml` で、このブランチに push するたびにリポジトリ直下がそのまま公開されます。
+最初の一度だけ、リポジトリ側で Pages を有効にする操作が必要です（Actions のトークンでは有効化できないため）。
 
-1. GitHub のリポジトリ設定 → Pages → Source を `Deploy from a branch`、ブランチをこのブランチ（または `main`）の `/ (root)` に設定
-2. 発行されたURLをスマホで開く
+1. リポジトリの **Settings → Pages** を開く
+2. **Build and deployment → Source** を **GitHub Actions** にする
+3. **Actions → Deploy to GitHub Pages → Run workflow** を実行（次回以降の push では自動で走ります）
 
-Service Worker を使うため、**HTTPS か `localhost`** で開く必要があります。
+公開URL: `https://ytakaiclimb-cell.github.io/home-kakeibo/`
+
+Service Worker を使うため、**HTTPS か `localhost`** で開く必要があります（ファイルを直接開くと動きません）。
 
 ## 手元で動かす
 
